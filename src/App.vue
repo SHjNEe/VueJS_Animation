@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="container">
+      <user-list></user-list>
+    </div>
+    <div class="container">
       <div class="block" :class="{ animate: animatedBlock }"></div>
       <button @click="animateBlock">Animate</button>
     </div>
@@ -12,6 +15,7 @@
     </div>
     <div class="container">
       <transition
+        :css="false"
         name="fade-button"
         mode="out-in"
         @before-enter="beforeEnter"
@@ -38,7 +42,11 @@
 </template>
 
 <script>
+import ListData from "./components/ListData.vue";
 export default {
+  components: {
+    userList: ListData,
+  },
   data() {
     return {
       dialogIsVisible: false,
@@ -87,7 +95,7 @@ export default {
           clearInterval(interval);
           done();
         }
-      }, 100);
+      }, 10);
     },
     afterEnter() {
       console.log("After enter");
@@ -102,7 +110,7 @@ export default {
           clearInterval(interval);
           done();
         }
-      }, 100);
+      }, 10);
     },
     afterLeave() {
       console.log("After Leave");
