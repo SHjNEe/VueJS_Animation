@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <div class="container">
       <user-list></user-list>
     </div>
@@ -38,15 +38,25 @@
     <div class="container">
       <button @click="showDialog">Show Dialog</button>
     </div>
-  </div>
+  </div> -->
+
+  <!-- <transition name="route">
+    <router-view></router-view>
+  </transition> -->
+  
+  <router-view v-slot="slotProps">
+    <transition name="fade-button" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </transition>
+  </router-view>
 </template>
 
 <script>
 import ListData from "./components/ListData.vue";
 export default {
-  components: {
-    userList: ListData,
-  },
+  // components: {
+  //   userList: ListData,
+  // },
   data() {
     return {
       dialogIsVisible: false,
@@ -194,7 +204,7 @@ button:active {
   opacity: 0;
   transform: translateY(-30px);
 }
-/* .fade-button-enter-from,
+.fade-button-enter-from,
 .fade-button-leave-to {
   opacity: 0;
 }
@@ -207,17 +217,25 @@ button:active {
 .fade-button-enter-to,
 .fade-button-leave-from {
   opacity: 1;
-} */
+}
 
-@keyframes slide-fade {
+.route-enter-from {
+}
+.route-enter-active {
+  animation: slide-scale 0.5s;
+}
+.route-enter-to {
+}
+
+.route-leave-active {
+  animation: slide-scale 0.5s;
+}
+@keyframes slide-scale {
   0% {
     transform: translateX(0) scale(1);
   }
   70% {
     transform: translateX(-60px) scale(1.1);
-  }
-  70% {
-    transform: translateX(-120px) scale(1.1);
   }
   100% {
     transform: translateX(-150px) scale(1);
